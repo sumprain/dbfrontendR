@@ -1,0 +1,21 @@
+---
+title: 'DB front end: to dos'
+author: "Dr Suman Kumar"
+date: "9 November 2015"
+output: html_document
+---
+
+## 09.11.2015
+
+### To add to table class of dbfrontendR
+
+- get/set master table (in child table)
+- get current PK id from master table (in child table)
+- current PK id (in the master table) (will be obtained from shiny application)
+
+## Suggested steps
+
+1. library(shinydbwidget)
+2. `start()` function: it will start the login page
+3. tabbed page with text boxes for username, password, dbname and location.
+4. 

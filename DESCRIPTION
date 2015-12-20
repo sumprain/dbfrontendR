@@ -1,0 +1,11 @@
+Package: dbfrontendR
+Type: Package
+Title: Package to design database front end
+Version: 0.0.0.9000
+Authors@R: person("Suman", "Kumar", email = "sumprain@yahoo.com", role = c("aut", "cre"))
+Description: It is a package to design database front end with Shiny as interface.
+License: MIT
+LazyData: TRUE
+Imports: shiny,
+    dbMapR,
+    shinyDBWidget
