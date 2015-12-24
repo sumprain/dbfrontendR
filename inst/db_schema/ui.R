@@ -1,28 +1,31 @@
 make_login <- function() {
 
-  shiny::tagList(
-    shiny::tags$h1("Login ..."),
-    shiny::textInput("login_name", "Login name"),
-    shiny::passwordInput("login_pass", "Password"),
-    shiny::textInput("login_db", "Database name"),
-    shiny::helpText("(Enter full path of database, if it is SQLite)"),
-    shiny::textInput("login_loc", "Location", "localhost"),
-    shiny::selectInput("login_dbtype", "Type of database",
+  tagList(
+    tags$h1("Login ..."),
+    textInput("login_name", "Login name"),
+    passwordInput("login_pass", "Password"),
+    textInput("login_db", "Database name"),
+    helpText("(Enter full path of database, if it is SQLite)"),
+    textInput("login_loc", "Location", "localhost"),
+    selectInput("login_dbtype", "Type of database",
                        choices = c("postgres", "sqlite"), selected = "postgres",
                        selectize = FALSE),
-    shiny::hr(),
-    shiny::actionButton("login_auth", "Authenticate ..."),
-    shiny::actionButton("login_logout", "Log out ..."),
-    shiny::textOutput("login_msg"),
-    shiny::textOutput("db_name")
+    hr(),
+    actionButton("login_auth", "Authenticate"),
+    actionButton("login_logout", "Log out"),
+    textOutput("login_msg"),
+    textOutput("db_name")
   )
 }
 
 shinyUI(fluidPage(
-  tabsetPanel(
-    tabPanel("Login ...", value = "login",
+  tabsetPanel(id = "tb_panel",
+    tabPanel("Login", value = "login",
             column(4, make_login(), offset = 4)),
-    tabPanel("Select tables", value = "sel_tbl"),
+    tabPanel("Select tables", value = "sel_tbl",
+             h1("Select tables ..."),
+             column(10, uiOutput("chks"), offset = 1),
+             column(2, actionButton("chk_ok", label = "Select tables"), offset = 5),
+             verbatimTextOutput("out1")),
     tabPanel("Modify schema", value = "mod_schema")
-  )
-))
+)))
