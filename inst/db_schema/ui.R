@@ -23,9 +23,6 @@ shinyUI(fluidPage(
     tabPanel("Login", value = "login",
             column(4, make_login(), offset = 4)),
     tabPanel("Select tables", value = "sel_tbl",
-             h1("Select tables ..."),
-             column(10, uiOutput("chks"), offset = 1),
-             column(2, actionButton("chk_ok", label = "Select tables"), offset = 5),
-             verbatimTextOutput("out1")),
+             column(8, uiOutput("chks"), offset = 2)),
     tabPanel("Modify schema", value = "mod_schema")
 )))

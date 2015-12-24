@@ -53,6 +53,9 @@ observe({
       txt_logout <- schema$db_main$disconnect()
       login_rv$src <- NULL
       schema$db_main <- NULL
+      schema$tbl_fk_df <- NULL
+      schema$db_schema <- NULL
+      schema$tbl_schema <- NULL
       output$login_msg <- renderText(isolate(txt_logout))
       output$db_name <- renderText("")
     })
