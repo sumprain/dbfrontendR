@@ -1,6 +1,6 @@
 authenticate <- function(user, pwd, db, host, dbtype) {
   s <- if (dbtype == "postgres") {
-    try(dplyr::src_postgres(dbname = db, host = host, user = user, password = pwd))
+    try(dplyr::src_postgres(dbname = db, host = host, user = user, password = pwd), silent = TRUE)
   } else if (dbtype == "sqlite") {
     try(dplyr::src_sqlite(path = db, create = FALSE))
   }
@@ -33,7 +33,7 @@ observe({
 observe({
   if (input$login_auth > 0L) {
     isolate({
-      schema$db_main <- try(dbMapR::dbDatabaseClass$new(login_rv$src, date_input = "ymd"))
+      schema$db_main <- try(dbMapR::dbDatabaseClass$new(login_rv$src, date_input = "ymd"), silent = TRUE)
       if (inherits(schema$db_main, "try-error")) {
         output$db_name <- renderText("Database object population failed!!")
       } else {

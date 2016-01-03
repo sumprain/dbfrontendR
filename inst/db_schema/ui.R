@@ -1,3 +1,4 @@
+
 make_login <- function() {
 
   tagList(
@@ -10,7 +11,6 @@ make_login <- function() {
     selectInput("login_dbtype", "Type of database",
                        choices = c("postgres", "sqlite"), selected = "postgres",
                        selectize = FALSE),
-    hr(),
     actionButton("login_auth", "Authenticate"),
     actionButton("login_logout", "Log out"),
     textOutput("login_msg"),
@@ -18,11 +18,11 @@ make_login <- function() {
   )
 }
 
-shinyUI(fluidPage(
-  tabsetPanel(id = "tb_panel",
+shinyUI(navbarPage(title = "Database Schema", id = "tb_panel",
     tabPanel("Login", value = "login",
-            column(4, make_login(), offset = 4)),
+            column(4, make_login(), offset = 4), shinyjs::useShinyjs()),
     tabPanel("Select tables", value = "sel_tbl",
              column(8, uiOutput("chks"), offset = 2)),
-    tabPanel("Modify schema", value = "mod_schema")
-)))
+    tabPanel("Modify schema", value = "mod_schema",
+             column(10, uiOutput("sch"), offset = 1))
+))
