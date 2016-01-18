@@ -20,9 +20,10 @@ make_login <- function() {
 
 shinyUI(navbarPage(title = "Database Schema", id = "tb_panel",
     tabPanel("Login", value = "login",
-            column(4, make_login(), offset = 4), shinyjs::useShinyjs()),
+            column(4, make_login(), offset = 4)),
     tabPanel("Select tables", value = "sel_tbl",
              column(8, uiOutput("chks"), offset = 2)),
     tabPanel("Modify schema", value = "mod_schema",
+             column(2, actionButton("save_schema", "Save Schema"), offset = 5),
              column(10, uiOutput("sch"), offset = 1))
 ))

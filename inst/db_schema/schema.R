@@ -56,9 +56,9 @@ onecol <- function(col) {
     conditionalPanel(condition = paste0("input.", id_gen(id_int, "isSelect"), " == true"),
       selectInput(id_gen(id_int, "valSource"), "Source of value", choices = list("From database" = "db", "User defined list" = "udl")),
       conditionalPanel(condition = paste0("input.", id_gen(id_int, "valSource"), " == 'db'"),
-        selectInput(id_gen(id_int, "tblSel"), "Select table", choices = tblSel()),
-        selectInput(id_gen(id_int, "valSel"), "Select column for value", choices = list()),
-        selectInput(id_gen(id_int, "textSel"), "Select column for text", choices = list())),
+        selectInput(id_gen(id_int, "selectTblName"), "Select table", choices = tblSel()),
+        selectInput(id_gen(id_int, "selectValColName"), "Select column for value", choices = list()),
+        selectInput(id_gen(id_int, "selectTextColName"), "Select column for text", choices = list())),
       conditionalPanel(condition = paste0("input.", id_gen(id_int, "valSource"), " == 'udl'"),
         inputcol("selectValCol", "Enter semicolon delimited list of values", d_textInput),
         inputcol("selectTextCol", "Enter semicolon delimited list of texts", d_textInput)),
@@ -99,11 +99,26 @@ onedb <- function(db) {
   })), id = "tabTbls"))
 }
 
-
 observe({
   if (input$tb_panel == "mod_schema") {
     isolate({
       output$sch <- renderUI(isolate(onedb(schema$db_schema)))
     })
+  }
+})
+
+observe({
+  if (input$tb_panel == "mod_schema") {
+    db <- schema$db_schema
+    for (tbl in input[["tabTbls"]]) {
+      for (col in input[[tbl]]) {
+        cl <- db$get_tables()[[tbl]]$get_columns()[[col]]
+        id_tbl <- id_gen(tbl, col, "selectTblName")
+        id_val <- id_gen(tbl, col, "selectValColName")
+        id_text <- id_gen(tbl, col, "selectTextColName")
+        updateSelectInput(session, id_val, choices = colSel(cl, input[[id_tbl]]))
+        updateSelectInput(session, id_text, choices = colSel(cl, input[[id_tbl]]))
+      }
+    }
   }
 })

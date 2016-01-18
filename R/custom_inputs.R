@@ -1,6 +1,7 @@
 # These inputs are made from copying the text, numeric, checkbox and select inputs from
 # shiny package which aim to include an option for them being disabled at the outset
 
+#' @export
 `%AND%` <- function(x, y) {
   if (!is.null(x) && !is.na(x))
     if (!is.null(y) && !is.na(y))
@@ -8,11 +9,13 @@
   return(NULL)
 }
 
+#' @export
 formatNoSci <- function(x) {
   if (is.null(x)) return(NULL)
   format(x, scientific = FALSE, digits = 15)
 }
 
+#' @export
 d_textInput <- function(inputId, label, value = "", width = NULL,
                         placeholder = NULL, disabled = FALSE) {
   if (!disabled) {
@@ -31,6 +34,7 @@ d_textInput <- function(inputId, label, value = "", width = NULL,
 
 }
 
+#' @export
 d_numericInput <- function(inputId, label, value, min = NA, max = NA, step = NA,
                            width = NULL, disabled = FALSE) {
 
@@ -53,6 +57,7 @@ d_numericInput <- function(inputId, label, value, min = NA, max = NA, step = NA,
   )
 }
 
+#' @export
 d_checkboxInput <- function(inputId, label, value = FALSE, width = NULL, disabled = FALSE) {
 
   inputTag <- tags$input(id = inputId, type="checkbox")
